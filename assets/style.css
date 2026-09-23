@@ -1,0 +1,29 @@
+:root{--bg:#0f0f10;--fg:#ececec;--mut:#9a9a9f;--ac:#f2b33d;--cel:325px;--gap:6px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--ac)}
+.topo{max-width:1400px;margin:0 auto;padding:28px 16px 12px}
+.topo h1{margin:4px 0;font-size:clamp(22px,4vw,34px)}
+.marca{color:var(--mut);text-decoration:none;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+.meta{color:var(--mut);margin:0 0 12px}
+#busca{width:100%;max-width:420px;padding:10px 12px;border-radius:8px;border:1px solid #333;background:#1a1a1c;color:var(--fg);font-size:15px}
+.mosaico{max-width:1400px;margin:0 auto;padding:8px 16px 24px;display:grid;gap:var(--gap);
+  grid-template-columns:repeat(auto-fill,var(--cel));justify-content:center}
+.cel{position:relative;display:block;aspect-ratio:325/244;overflow:hidden;background:#1c1c1f;border-radius:4px}
+.cel img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s,opacity .25s}
+.cel:hover img{transform:scale(1.04)}
+.legenda{position:absolute;inset:auto 0 0 0;padding:28px 10px 8px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;display:flex;flex-direction:column}
+.legenda small{color:#ccc}
+.navev{max-width:1400px;margin:0 auto;padding:4px 16px;display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.vazio{text-align:center;color:var(--mut)}
+.rodape{max-width:1400px;margin:0 auto;padding:24px 16px 40px;color:var(--mut);font-size:13px;border-top:1px solid #222}
+/* visualizador */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;z-index:99;touch-action:pan-y}
+.lb.on{display:flex}
+.lb img{width:min(94vw,calc(84vh * 325 / 244),650px);height:auto;box-shadow:0 8px 40px #000;image-rendering:auto}
+.lb button{position:absolute;background:rgba(255,255,255,.08);color:#fff;border:0;font-size:28px;width:52px;height:52px;border-radius:50%;cursor:pointer}
+.lb button:hover{background:rgba(255,255,255,.2)}
+.lb .fechar{top:14px;right:14px}.lb .ant{left:14px}.lb .prox{right:14px}
+.lb .info{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#bbb;font-size:13px}
+.lb .info a{margin-left:10px}
+@media (max-width:700px){:root{--gap:3px}.mosaico{padding:6px 6px 20px;grid-template-columns:repeat(2,1fr)}.lb button{width:44px;height:44px;font-size:22px}}
