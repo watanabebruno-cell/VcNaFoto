@@ -13,18 +13,27 @@
   // Visualizador nas paginas de evento
   var m=document.getElementById('mosaico');
   if(!m)return;
-  var links=[].slice.call(m.querySelectorAll('a.cel'));
+  var WA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg>';
+  var base=m.dataset.url, textoWa=m.dataset.wa;
+  function linkWa(i){return 'https://wa.me/?text='+encodeURIComponent(textoWa+' '+base+'#'+(i+1));}
+  var links=[].slice.call(m.querySelectorAll('a.foto'));
+  links.forEach(function(a,i){
+    var w=document.createElement('a');w.className='wa';w.href=linkWa(i);w.target='_blank';w.rel='noopener';
+    w.title='Compartilhar no WhatsApp';w.setAttribute('aria-label','Compartilhar no WhatsApp');w.innerHTML=WA;
+    a.parentNode.appendChild(w);
+  });
   var lb=document.createElement('div');lb.className='lb';
-  lb.innerHTML='<button class="fechar" aria-label="Fechar">&times;</button><button class="ant" aria-label="Anterior">&#8249;</button><img alt=""><button class="prox" aria-label="Próxima">&#8250;</button><div class="info"></div>';
+  lb.innerHTML='<button class="fechar" aria-label="Fechar">&times;</button><button class="ant" aria-label="Anterior">&#8249;</button><img alt=""><button class="prox" aria-label="Próxima">&#8250;</button><div class="acoes"><a class="btn-wa" target="_blank" rel="noopener">'+WA+'Compartilhar no WhatsApp</a><div class="info"></div></div>';
   document.body.appendChild(lb);
-  var img=lb.querySelector('img'),info=lb.querySelector('.info'),atual=0;
+  var img=lb.querySelector('img'),info=lb.querySelector('.info'),bw=lb.querySelector('.btn-wa'),atual=0;
   function mostrar(i){
     atual=(i+links.length)%links.length;
     var href=links[atual].getAttribute('href');
     img.src=href;
+    bw.href=linkWa(atual);
     var arq=decodeURIComponent(href);
     var assunto=encodeURIComponent('Pedido de remoção - evento '+m.dataset.num+' - '+arq);
-    info.innerHTML=(atual+1)+' / '+links.length+' <a href="mailto:'+m.dataset.email+'?subject='+assunto+'">Solicitar remoção desta foto</a>';
+    info.innerHTML=(atual+1)+' / '+links.length+' &middot; <a href="mailto:'+m.dataset.email+'?subject='+assunto+'">Solicitar remoção desta foto</a>';
     [1,-1].forEach(function(d){var p=new Image();p.src=links[(atual+d+links.length)%links.length].getAttribute('href');});
     history.replaceState(null,'','#'+(atual+1));
   }
@@ -42,6 +51,6 @@
   var x0=null;
   lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
   lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)mostrar(atual+(dx<0?1:-1));x0=null;});
-  // Link direto para uma foto: .../12/#5
+  // Link direto para uma foto: .../12/#5 (e o que o WhatsApp abre)
   var h=parseInt(location.hash.slice(1),10);if(h>0&&h<=links.length)abrir(h-1);
 })();

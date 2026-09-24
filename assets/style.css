@@ -16,6 +16,16 @@ a{color:var(--ac)}
 .legenda small{color:#ccc}
 .navev{max-width:1400px;margin:0 auto;padding:4px 16px;display:flex;justify-content:space-between;gap:12px;font-size:14px}
 .vazio{text-align:center;color:var(--mut)}
+.mensagem{max-width:760px;margin:6px 0 18px;padding:14px 16px;border-left:3px solid var(--ac);background:#18181a;border-radius:0 8px 8px 0}
+.mensagem p{margin:0 0 8px;font-size:16px}.mensagem p:last-child{margin:0}
+.cel .foto{display:block;width:100%;height:100%}
+.wa{position:absolute;right:6px;bottom:6px;width:34px;height:34px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.5);opacity:.9;transition:transform .15s,opacity .15s}
+.wa:hover{opacity:1;transform:scale(1.1)}
+.wa svg{width:20px;height:20px;fill:#fff}
+.lb .acoes{position:absolute;bottom:14px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.lb .btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;text-decoration:none;font-weight:600;padding:10px 18px;border-radius:24px;font-size:15px}
+.lb .btn-wa svg{width:20px;height:20px;fill:#fff}
 .rodape{max-width:1400px;margin:0 auto;padding:24px 16px 40px;color:var(--mut);font-size:13px;border-top:1px solid #222}
 /* visualizador */
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;z-index:99;touch-action:pan-y}
@@ -24,6 +34,6 @@ a{color:var(--ac)}
 .lb button{position:absolute;background:rgba(255,255,255,.08);color:#fff;border:0;font-size:28px;width:52px;height:52px;border-radius:50%;cursor:pointer}
 .lb button:hover{background:rgba(255,255,255,.2)}
 .lb .fechar{top:14px;right:14px}.lb .ant{left:14px}.lb .prox{right:14px}
-.lb .info{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#bbb;font-size:13px}
+.lb .info{text-align:center;color:#bbb;font-size:13px}
 .lb .info a{margin-left:10px}
-@media (max-width:700px){:root{--gap:3px}.mosaico{padding:6px 6px 20px;grid-template-columns:repeat(2,1fr)}.lb button{width:44px;height:44px;font-size:22px}}
+@media (max-width:700px){.wa{width:30px;height:30px;right:4px;bottom:4px}.wa svg{width:17px;height:17px}.mensagem p{font-size:15px}:root{--gap:3px}.mosaico{padding:6px 6px 20px;grid-template-columns:repeat(2,1fr)}.lb button{width:44px;height:44px;font-size:22px}}
