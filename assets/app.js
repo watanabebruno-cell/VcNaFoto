@@ -14,6 +14,7 @@
   var m=document.getElementById('mosaico');
   if(!m)return;
   var WA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg>';
+  var DL='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v9.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.4l3.3 3.3V4a1 1 0 0 1 1-1zM5 19h14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2z"/></svg>';
   var base=m.dataset.url, textoWa=m.dataset.wa;
   function linkWa(i){return 'https://wa.me/?text='+encodeURIComponent(textoWa+' '+base+'#'+(i+1));}
   var links=[].slice.call(m.querySelectorAll('a.foto'));
@@ -23,14 +24,16 @@
     a.parentNode.appendChild(w);
   });
   var lb=document.createElement('div');lb.className='lb';
-  lb.innerHTML='<button class="fechar" aria-label="Fechar">&times;</button><button class="ant" aria-label="Anterior">&#8249;</button><img alt=""><button class="prox" aria-label="Próxima">&#8250;</button><div class="acoes"><a class="btn-wa" target="_blank" rel="noopener">'+WA+'Compartilhar no WhatsApp</a><div class="info"></div></div>';
+  lb.innerHTML='<button class="fechar" aria-label="Fechar">&times;</button><button class="ant" aria-label="Anterior">&#8249;</button><img alt=""><button class="prox" aria-label="Próxima">&#8250;</button><div class="acoes"><div class="botoes"><a class="btn-wa" target="_blank" rel="noopener">'+WA+'Compartilhar no WhatsApp</a><a class="btn-dl" download>'+DL+'Baixar foto</a></div><div class="info"></div></div>';
   document.body.appendChild(lb);
-  var img=lb.querySelector('img'),info=lb.querySelector('.info'),bw=lb.querySelector('.btn-wa'),atual=0;
+  var img=lb.querySelector('img'),info=lb.querySelector('.info'),bw=lb.querySelector('.btn-wa'),bd=lb.querySelector('.btn-dl'),atual=0;
   function mostrar(i){
     atual=(i+links.length)%links.length;
     var href=links[atual].getAttribute('href');
     img.src=href;
     bw.href=linkWa(atual);
+    var ext=(href.match(/\.[a-z0-9]+$/i)||['.jpg'])[0].toLowerCase();
+    bd.href=href; bd.setAttribute('download','VcNaFoto-evento-'+m.dataset.num+'-foto-'+(atual+1)+ext);
     var arq=decodeURIComponent(href);
     var assunto=encodeURIComponent('Pedido de remoção - evento '+m.dataset.num+' - '+arq);
     info.innerHTML=(atual+1)+' / '+links.length+' &middot; <a href="mailto:'+m.dataset.email+'?subject='+assunto+'">Solicitar remoção desta foto</a>';
